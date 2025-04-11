@@ -1,12 +1,15 @@
 "use client";
-import { useFetch } from "@/hooks/useFetch";
-import { UserData } from "./type";
+import Pagination from "../pagination/pagination";
+import PageNumber from "../pagesNumber/pageNumber";
+import { useFetchData } from "@/hooks/useFetchData";
 
 export default function ListUsers() {
-const { data: users } = useFetch<{ results: UserData[]}>(`https://randomuser.me/api/?results=10`);
+  const {data: users} = useFetchData();
 
   return (
     <div className="relative overflow-x-auto">
+      <PageNumber/>
+      <div className="py-4">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -59,6 +62,8 @@ const { data: users } = useFetch<{ results: UserData[]}>(`https://randomuser.me/
         ))}
         </tbody>
       </table>
+      </div>
+      <Pagination/>
     </div>
   );
 }
