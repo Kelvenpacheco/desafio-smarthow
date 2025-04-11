@@ -1,19 +1,17 @@
+
 import { useFetchData } from "@/hooks/useFetchData";
 import { useState } from "react";
+import { UserData } from "../listUsers/type";
 
 export default function UsersDirectory() {
   const [searchTerm, setSearchTerm] = useState('');
-   const {data: users} = useFetchData();
+   const {data: users } = useFetchData();
 
    const handleSearch = async () => {
-    await users?.results.filter((user) => {
+    await users?.results.filter((user: UserData) => {
       return user.name.first.toLowerCase().includes(searchTerm.toLowerCase());
     });
   };
-
-  const filteredUsers = users?.results.filter((user) =>
-    user.name.first);
-
 
   return (
     <>

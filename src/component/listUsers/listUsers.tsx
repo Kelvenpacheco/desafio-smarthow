@@ -2,6 +2,8 @@
 import Pagination from "../pagination/pagination";
 import PageNumber from "../pagesNumber/pageNumber";
 import { useFetchData } from "@/hooks/useFetchData";
+import Link from "next/link";
+import { UserData } from "./type";
 
 export default function ListUsers() {
   const {data: users} = useFetchData();
@@ -38,7 +40,7 @@ export default function ListUsers() {
         </thead>
         <tbody> 
            
-        {users?.results.map((user, key) =>(
+        {users?.results.map((user: UserData, key: string) =>(
           <><tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                 <th
                     scope="row"
@@ -49,10 +51,12 @@ export default function ListUsers() {
                         src={user.picture.medium}
                         alt="user profile"/>
                 </th>
-                <td className="px-6 py-4">
+                <Link href={`/${user.name.first}`} className="flex items-center">
+                <td className="px-6 py-4" >
                 {user.name.first}
                 {user.name.last}
                 </td>
+                </Link>
                 <td className="px-6 py-4">{user.email}</td>
                 <td className="px-6 py-4">{user.location.city} / {user.location.state} / {user.location.country}</td>
                 <td className="px-6 py-4">{user.cell}</td>
